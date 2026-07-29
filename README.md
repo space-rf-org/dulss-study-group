@@ -102,5 +102,5 @@ We also act as a **tech evaluation and critique** group:
 
 ## Stay in touch
 
-- **Craig Rodrigues** — [LinkedIn](https://www.linkedin.com/in/rodrigc) · Discord: `@CraigRodrigues`
-- **Chiradip Mandal** — [LinkedIn](https://www.linkedin.com/in/chiradip/) · Discord: `@Chiradip Mandal`
+- **Craig Rodrigues** — [https://linkedin.com/rodrigc](https://www.linkedin.com/in/rodrigc) · Discord: `@CraigRodrigues`
+- **Chiradip Mandal** — [https://www.linkedin.com/chiradip/](https://www.linkedin.com/in/chiradip/) · Discord: `@Chiradip Mandal`
