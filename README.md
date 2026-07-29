@@ -25,7 +25,7 @@ We study systems together. We also evaluate them: architecture, performance, cor
 Invite: [https://discord.gg/C2aTuavXeU](https://discord.gg/C2aTuavXeU)
 
 **Luma** — calendar and RSVPs for all sessions  
-Calendar: [https://luma.com/dss](https://luma.com/dss)
+Calendar: [https://luma.com/dulss](https://luma.com/dulss)
 
 ---
 
