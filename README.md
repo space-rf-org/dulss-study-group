@@ -1,12 +1,14 @@
+---
+title: Designing Ultra Large Scale Systems Study Group
+---
+
 <table>
 <tr>
 <td width="72" valign="middle">
 <img src="assets/logo.jpg" alt="Designing Ultra Large Scale Systems" width="64" height="64">
 </td>
 <td valign="middle">
-
-# Designing Ultra Large Scale Systems Study Group
-
+<h1>Designing Ultra Large Scale Systems Study Group</h1>
 </td>
 </tr>
 </table>
@@ -21,31 +23,53 @@ We study systems together. We also evaluate them: architecture, performance, cor
 
 Meetings and presentations are held on Discord. We also have ongoing discussions there between sessions.
 
-**Invite:** https://discord.gg/C2aTuavXeU
+**Invite:** [https://discord.gg/C2aTuavXeU](https://discord.gg/C2aTuavXeU)
 
 ---
 
 ## Presentations
 
 <table>
+<thead>
 <tr>
-<td>
-
-| # | Title | Date | Source |
-| ---: | --- | --- | --- |
-| 001 | [Exploring TigerBeetle: Debit/Credit Transactions in Conventional Databases vs. First-Class Primitives](https://space-rf-org.github.io/dulss-study-group/001/slides.html) | July 15, 2026 | [`001/`](./001/) |
-| 002 | Exploring TigerBeetle, part 2: Viewstamped Replication (VR) Consensus Protocol | August 19, 2026 | — |
-| 003 | Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces | September 16, 2026 | — |
-| 004 | ChronoQuorum: A Consensus Protocol for Unmanned Mission Vehicles | October 2026 | — |
-
-</td>
+<th align="right">#</th>
+<th>Title</th>
+<th>Date</th>
+<th>Source</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">001</td>
+<td><a href="https://space-rf-org.github.io/dulss-study-group/001/slides.html">Exploring TigerBeetle: Debit/Credit Transactions in Conventional Databases vs. First-Class Primitives</a></td>
+<td>July 15, 2026</td>
+<td><a href="./001/"><code>001/</code></a></td>
+</tr>
+<tr>
+<td align="right">002</td>
+<td>Exploring TigerBeetle, part 2: Viewstamped Replication (VR) Consensus Protocol</td>
+<td>August 19, 2026</td>
+<td>—</td>
+</tr>
+<tr>
+<td align="right">003</td>
+<td>Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces</td>
+<td>September 16, 2026</td>
+<td>—</td>
+</tr>
+<tr>
+<td align="right">004</td>
+<td>ChronoQuorum: A Consensus Protocol for Unmanned Mission Vehicles</td>
+<td>October 2026</td>
+<td>—</td>
+</tr>
+</tbody>
 </table>
 
 ### Upcoming events
 
 - **Exploring TigerBeetle, part 2: Viewstamped Replication (VR) Consensus Protocol** — August 19, 2026  
-  Sign up: https://luma.com/q52i04r2
+  Sign up: [https://luma.com/q52i04r2](https://luma.com/q52i04r2)
 
 ---
 

@@ -1,0 +1,13 @@
+# GitHub Pages / Jekyll site settings (does not affect GitHub README content)
+title: Designing Ultra Large Scale Systems Study Group
+description: >-
+  A community for engineers who want to go deep on distributed systems,
+  data algorithms, and production-scale designs — through papers, code,
+  and careful critique.
+theme: jekyll-theme-primer
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+plugins:
+  - jekyll-seo-tag
