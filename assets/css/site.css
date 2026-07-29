@@ -247,6 +247,19 @@ body > .container-lg.markdown-body {
   font-size: 15px !important;
   color: var(--content) !important;
   background: var(--entry) !important;
+  /* Match header and body cells (browsers default th to center) */
+  text-align: left !important;
+  vertical-align: top !important;
+}
+
+.markdown-body table:not(:first-of-type) th[align="right"],
+.markdown-body table:not(:first-of-type) td[align="right"] {
+  text-align: right !important;
+}
+
+.markdown-body table:not(:first-of-type) th[align="center"],
+.markdown-body table:not(:first-of-type) td[align="center"] {
+  text-align: center !important;
 }
 
 .markdown-body table:not(:first-of-type) tr:last-child td {
