@@ -1,1 +1,8 @@
 .DS_Store
+
+# Local Jekyll preview
+_site/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.bundle/

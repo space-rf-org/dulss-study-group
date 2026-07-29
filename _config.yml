@@ -8,26 +8,41 @@ description: >-
 # Absolute URLs for Open Graph / LinkedIn / Twitter unfurls
 url: "https://space-rf-org.github.io"
 baseurl: "/dulss-study-group"
+# Used by jekyll-github-metadata locally and on Pages
+repository: space-rf-org/dulss-study-group
 
 theme: jekyll-theme-primer
+show_downloads: false
+
 markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
 
-# Default social preview image (og:image) via jekyll-seo-tag
+# Plugins used by GitHub Pages. List them explicitly so local `jekyll serve`
+# (Podman preview) matches production.
+plugins:
+  - jekyll-readme-index
+  - jekyll-optional-front-matter
+  - jekyll-default-layout
+  - jekyll-relative-links
+  - jekyll-seo-tag
+  - jekyll-titles-from-headings
+  - jekyll-github-metadata
+
+# Publish root README.md as the site homepage (/).
+readme_index:
+  enabled: true
+  with_frontmatter: true
+
+# Apply theme layout + social image to all pages
 defaults:
   - scope:
       path: ""
     values:
+      layout: default
       image:
         path: /assets/social-card.png
         width: 1200
         height: 627
         alt: Designing Ultra Large Scale Systems Study Group
-
-# Publish root README.md as the site homepage (/).
-# Default with_frontmatter: false would skip a README that has YAML front matter.
-readme_index:
-  enabled: true
-  with_frontmatter: true

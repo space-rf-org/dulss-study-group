@@ -1,0 +1,258 @@
+/* Primer layout + Merlot color scheme
+   Palette drawn from jekyll-theme-merlot:
+   wine #7c334f, rose #cd596b, cream #fff6e9 / #ece4d8, taupe #8b786f, link blue #417090
+   Loaded only on GitHub Pages / local Jekyll — not on github.com README. */
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&display=swap");
+
+:root {
+  --merlot-wine: #7c334f;
+  --merlot-rose: #cd596b;
+  --merlot-rose-soft: #e69b95;
+  --merlot-cream: #fff6e9;
+  --merlot-cream-deep: #ece4d8;
+  --merlot-parchment: #d3ccc1;
+  --merlot-taupe: #8b786f;
+  --merlot-ink: #544943;
+  --merlot-ink-strong: #3a322e;
+  --merlot-link: #417090;
+  --merlot-link-hover: #2f5570;
+  --surface: #fffcf7;
+  --shadow: 0 14px 40px rgba(124, 51, 79, 0.12);
+  --radius: 14px;
+  --font: "Open Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html {
+  background: var(--merlot-cream-deep);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--merlot-ink);
+  font-family: var(--font);
+  background:
+    radial-gradient(900px 420px at 0% 0%, rgba(205, 89, 107, 0.14), transparent 55%),
+    radial-gradient(800px 380px at 100% 10%, rgba(124, 51, 79, 0.1), transparent 50%),
+    linear-gradient(180deg, var(--merlot-cream) 0%, var(--merlot-cream-deep) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Primer content shell */
+body > .container-lg.markdown-body {
+  max-width: 880px;
+  margin: 2.5rem auto 3.5rem;
+  padding: 2.25rem 2.5rem 2.75rem !important;
+  background: var(--surface);
+  border: 1px solid var(--merlot-parchment);
+  border-top: 4px solid var(--merlot-wine);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.markdown-body {
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--merlot-ink);
+}
+
+/* Brand header: first table = logo + title */
+.markdown-body > table:first-of-type {
+  display: block;
+  width: 100%;
+  margin: 0 0 1.25rem;
+  border: 0 !important;
+  background: transparent;
+}
+
+.markdown-body > table:first-of-type tr,
+.markdown-body > table:first-of-type td {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+}
+
+.markdown-body > table:first-of-type img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--merlot-parchment);
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.markdown-body > table:first-of-type h1 {
+  margin: 0 0 0 0.85rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: 1.35rem !important;
+  line-height: 1.25 !important;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--merlot-wine);
+}
+
+.markdown-body > table:first-of-type + p {
+  font-size: 0.95rem;
+  color: var(--merlot-taupe);
+  max-width: 46em;
+}
+
+/* Headings */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--merlot-wine);
+  border-bottom: none !important;
+}
+
+.markdown-body h2 {
+  margin-top: 1.6rem !important;
+  margin-bottom: 0.7rem !important;
+  padding-bottom: 0.35rem !important;
+  font-size: 1.1rem !important;
+  border-bottom: 2px solid var(--merlot-rose-soft) !important;
+}
+
+.markdown-body h3 {
+  margin-top: 1.2rem !important;
+  font-size: 0.98rem !important;
+  color: var(--merlot-rose);
+}
+
+.markdown-body p,
+.markdown-body li {
+  color: var(--merlot-ink);
+}
+
+.markdown-body li + li {
+  margin-top: 0.35rem;
+}
+
+.markdown-body strong {
+  color: var(--merlot-ink-strong);
+  font-weight: 700;
+}
+
+/* Links */
+.markdown-body a {
+  color: var(--merlot-link);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(65, 112, 144, 0.35);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.markdown-body a:hover {
+  color: var(--merlot-link-hover);
+  border-bottom-color: var(--merlot-link-hover);
+}
+
+/* Horizontal rules */
+.markdown-body hr {
+  height: 0;
+  margin: 1.75rem 0;
+  border: 0;
+  border-top: 1px solid var(--merlot-parchment);
+  background: none;
+}
+
+/* Data tables */
+.markdown-body table:not(:first-of-type) {
+  width: 100%;
+  margin: 1rem 0 1.25rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--merlot-parchment);
+  border-radius: 10px;
+  overflow: hidden;
+  display: table;
+  box-shadow: 0 1px 0 rgba(124, 51, 79, 0.04);
+}
+
+.markdown-body table:not(:first-of-type) th,
+.markdown-body table:not(:first-of-type) td {
+  padding: 0.5rem 0.7rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--merlot-cream-deep) !important;
+  font-size: 0.9rem;
+}
+
+.markdown-body table:not(:first-of-type) tr:last-child td {
+  border-bottom: 0 !important;
+}
+
+.markdown-body table:not(:first-of-type) th {
+  background: var(--merlot-wine) !important;
+  color: var(--merlot-cream) !important;
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.markdown-body table:not(:first-of-type) tr:nth-child(even) td {
+  background: rgba(236, 228, 216, 0.35);
+}
+
+.markdown-body table:not(:first-of-type) tr:hover td {
+  background: rgba(205, 89, 107, 0.08);
+}
+
+.markdown-body code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--merlot-cream);
+  border: 1px solid var(--merlot-parchment);
+  color: var(--merlot-wine);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}
+
+.markdown-body ol li::marker {
+  color: var(--merlot-rose);
+  font-weight: 700;
+}
+
+/* Primer footer */
+.footer {
+  border-top-color: var(--merlot-parchment) !important;
+  color: var(--merlot-taupe) !important;
+  font-size: 0.9rem !important;
+}
+
+.footer a {
+  color: var(--merlot-link);
+}
+
+@media (max-width: 700px) {
+  body > .container-lg.markdown-body {
+    margin: 0;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    padding: 1.5rem 1.15rem 2rem !important;
+  }
+
+  .markdown-body > table:first-of-type h1 {
+    font-size: 1.15rem !important;
+  }
+
+  .markdown-body > table:first-of-type img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .markdown-body {
+    font-size: 13.5px;
+  }
+}
