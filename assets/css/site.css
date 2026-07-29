@@ -41,16 +41,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Primer content shell */
+/* Primer content shell — full width (no side card borders / gutters).
+   Primer's .container-lg sets a max-width; force it off. */
 body > .container-lg.markdown-body {
-  max-width: 880px;
-  margin: 2.5rem auto 3.5rem;
-  padding: 2.25rem 2.5rem 2.75rem !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 1.75rem 1.75rem 2.5rem !important;
   background: var(--surface);
-  border: 1px solid var(--merlot-parchment);
-  border-top: 4px solid var(--merlot-wine);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border: 0 !important;
+  border-top: 4px solid var(--merlot-wine) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .markdown-body {
@@ -236,11 +238,7 @@ body > .container-lg.markdown-body {
 
 @media (max-width: 700px) {
   body > .container-lg.markdown-body {
-    margin: 0;
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    padding: 1.5rem 1.15rem 2rem !important;
+    padding: 1.25rem 1rem 2rem !important;
   }
 
   .markdown-body > table:first-of-type h1 {
