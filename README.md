@@ -35,6 +35,8 @@ Meetings and presentations are held on Discord. We also have ongoing discussions
 | ---: | --- | --- | --- |
 | 001 | [Exploring TigerBeetle: Debit/Credit Transactions in Conventional Databases vs. First-Class Primitives](https://space-rf-org.github.io/dulss-study-group/001/slides.html) | July 15, 2026 | [`001/`](./001/) |
 | 002 | Exploring TigerBeetle, part 2: Viewstamped Replication (VR) Consensus Protocol | August 19, 2026 | — |
+| 003 | Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces | September 16, 2026 | — |
+| 004 | ChronoQuorum: A Consensus Protocol for Unmanned Mission Vehicles | October 2026 | — |
 
 </td>
 </tr>
