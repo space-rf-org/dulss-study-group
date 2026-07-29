@@ -1,7 +1,3 @@
----
-title: Designing Ultra Large Scale Systems Study Group
----
-
 <table>
 <tr>
 <td width="72" valign="middle">

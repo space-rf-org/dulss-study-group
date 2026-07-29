@@ -10,7 +10,8 @@ kramdown:
   input: GFM
   hard_wrap: false
 
-# Do not replace GitHub Pages' default plugin set. In particular we need
-# jekyll-readme-index so README.md is published as the site homepage (/).
-# Listing only a subset of plugins (e.g. jekyll-seo-tag alone) drops that
-# plugin and makes / return 404 while other paths still work.
+# Publish root README.md as the site homepage (/).
+# Default with_frontmatter: false would skip a README that has YAML front matter.
+readme_index:
+  enabled: true
+  with_frontmatter: true
