@@ -78,7 +78,7 @@ We choose presentations that:
 
 1. **No product pitches** — substance over sales
 2. **Adhere to computer science fundamentals** — grounded in first principles
-3. **Interesting claims must be verifiable** — papers, code, benchmarks, not vibes
+3. **Interesting claims must be verifiable** - show us papers, algorithms, safety-liveness guarantees. We encourage having Formal verification. Code and benchmarks as secondary references.
 4. **Solve a specific problem that can help the industry at large** — transferable lessons, not navel-gazing
 
 ---
