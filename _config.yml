@@ -4,11 +4,27 @@ description: >-
   A community for engineers who want to go deep on distributed systems,
   data algorithms, and production-scale designs — through papers, code,
   and careful critique.
+
+# Absolute URLs for Open Graph / LinkedIn / Twitter unfurls
+url: "https://space-rf-org.github.io"
+baseurl: "/dulss-study-group"
+
 theme: jekyll-theme-primer
 markdown: kramdown
 kramdown:
   input: GFM
   hard_wrap: false
+
+# Default social preview image (og:image) via jekyll-seo-tag
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/social-card.png
+        width: 1200
+        height: 627
+        alt: Designing Ultra Large Scale Systems Study Group
 
 # Publish root README.md as the site homepage (/).
 # Default with_frontmatter: false would skip a README that has YAML front matter.
