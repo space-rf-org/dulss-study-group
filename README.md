@@ -17,6 +17,8 @@ A community for engineers who want to go deep on distributed systems, data algor
 
 We study systems together. We also evaluate them: architecture, performance, correctness, and when a technology is (or isn’t) a fit.
 
+**Definition** — [What is an ultra-large-scale system?](definition.md)
+
 ---
 
 ## Join us
