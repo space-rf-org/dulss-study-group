@@ -1,0 +1,5 @@
+# https://space-rf-org.github.io/dulss-study-group/
+User-agent: *
+Allow: /
+
+Sitemap: https://space-rf-org.github.io/dulss-study-group/sitemap.xml
