@@ -11,7 +11,7 @@ math: katex
 
 # Exploring TigerBeetle, part 2
 
-## Viewstamped Replication (VR) Consensus Protocol
+## Viewstamped Replication (VSR) Consensus Protocol
 
 ### Part of the ongoing Designing Ultra Large Scale Systems study group
 
@@ -136,7 +136,7 @@ We also act as a **tech evaluation and critique** group:
 ## What We'll Cover
 
 - Deeper dive into TigerBeetle’s **fault-tolerance design**
-- Deeper dive into the **Viewstamped Replication (VR)** consensus protocol
+- Deeper dive into the **Viewstamped Replication (VSR)** consensus protocol
 
 ---
 
@@ -251,30 +251,32 @@ The talk reframes how we think about safety:
 
 From the pre-work (slide 7):
 
-1. **[VR (1988)](https://www.cs.princeton.edu/courses/archive/fall11/cos518/papers/viewstamped.pdf)** — Oki & Liskov  
+1. **[Viewstamped Replication (1988)](https://www.cs.princeton.edu/courses/archive/fall11/cos518/papers/viewstamped.pdf)** — Oki & Liskov  
    Original primary-copy method for highly available distributed systems
 
-2. **[VR Revisited (2012)](https://dspace.mit.edu/entities/publication/80846d94-fcd3-40e6-87fb-8d91fe99a5d1)** — Liskov & Cowling  
-   Cleaner, modern restatement — **improves on / supersedes** the 1988 presentation for implementers
+2. **[Viewstamped Replication Revisited (2012)](https://dspace.mit.edu/entities/publication/80846d94-fcd3-40e6-87fb-8d91fe99a5d1)** — Liskov & Cowling  
+   Same Oki protocol in spirit; clearer write-up + **improved view-change** subprotocol
 
-**TigerBeetle follows the second paper** (VRR), not the 1988 description as-written.
-
----
-
-<!-- _class: build -->
-
-## “Viewstamp” Is a Leftover Name
-
-- The word **Viewstamp** comes from the **1988** paper
-- In **VR Revisited (2012)**, that term is largely a **historical leftover**
-- What matters operationally: **views**, **primaries**, **ops / log**, **quorums**, **view change**
-- TigerBeetle still says **VSR** (*Viewstamped* Replication) in code/docs — the *stamp* branding is legacy; the protocol is the **revisited** design
+**TigerBeetle implements this VSR lineage** (the revisited presentation).
 
 ---
 
 <!-- _class: build -->
 
-## VR 1988 — Building Blocks
+## What is a Viewstamp?
+
+A **viewstamp** is still a real identifier: **view + op**
+
+- **View** — which primary/epoch of leadership you’re in
+- **Op** — position in that view’s log
+- Together they name a specific log entry under a specific primary
+- Operational vocabulary: **views**, **primaries**, **ops / log**, **quorums**, **view change**
+
+---
+
+<!-- _class: build -->
+
+## VSR 1988 — Building Blocks
 
 From Oki & Liskov (original paper):
 
@@ -288,7 +290,7 @@ From Oki & Liskov (original paper):
 
 <!-- _class: build -->
 
-## VR 1988 — Views
+## VSR 1988 — Views
 
 - **View** — cohorts that can communicate + which one is **primary**
   - Subset of the configuration; must contain a **majority**
@@ -302,7 +304,7 @@ From Oki & Liskov (original paper):
 
 <!-- _class: build -->
 
-## VR 1988 — Events & Viewstamps
+## VSR 1988 — Events & Viewstamps
 
 - **Event** — primary needs to tell backups something (e.g. prepare / commit)
 - **Timestamp** — unique id for an event (usually a counter)
@@ -319,15 +321,15 @@ viewstamp { viewId, timestamp }
 
 <!-- _class: build -->
 
-## VR Revisited (2012) — What Got Simpler
+## VSR Revisited (2012) — Clearer Vocabulary
 
-The 2012 paper **drops / simplifies** much of the 1988 vocabulary:
+Same protocol spirit; the write-up drops heavier 1988 module framing:
 
 | 1988 | 2012 |
 | --- | --- |
 | module / cohort | **replica** in a replica group |
 | event / event log on disk | **log** (can be in memory + replicated) |
-| timestamp / viewstamp-centric | **op-number**, **view**, prepare/commit |
+| timestamp + view → **viewstamp** | **view** + **op-number** (still a viewstamp) |
 | heavyweight module RPC framing | clearer **primary + backups** service model |
 
 ---
@@ -339,7 +341,7 @@ The 2012 paper **drops / simplifies** much of the 1988 vocabulary:
 - **f** = maximum number of **faulty nodes** the system is designed to tolerate
 - Replica group size: at least **2f + 1**
 - If **f** replicas are down, a quorum is still possible with **f + 1** (a majority)
-- That majority quorum is how VR keeps **reliability and availability** under faults
+- That majority quorum is how VSR keeps **reliability and availability** under faults
 
 ---
 
@@ -379,19 +381,19 @@ The 2012 paper **drops / simplifies** much of the 1988 vocabulary:
 
 ## Why the Revisited Paper Matters
 
-- Same family of idea: **primary-copy** replicated state machine
-- **Easier to implement and reason about** than the 1988 write-up
-- Terminology matches what systems (and TigerBeetle) actually ship
-- “Viewstamp” remains in the **name**; the **protocol you study** is VRR
-- Next: how TigerBeetle maps VRR onto prepares, WAL, and quorums
+- Same **Oki protocol** spirit: primary-copy replicated state machine
+- Clearer presentation for implementers
+- Cowling’s real delta: **improved view-change** subprotocol
+- Raft is in the same family — but **missed** that view-change improvement (more on this later)
+- Next: how TigerBeetle maps VSR onto prepares, WAL, and quorums
 
 ---
 
 <!-- _class: build -->
 
-## What VR Revisited Gives You
+## What VSR Revisited Gives You
 
-Core idea (VRR): a **replicated state machine** with a single primary
+Core idea (VSR revisited): a **replicated state machine** with a single primary
 
 - Primary orders client requests into a log (**ops**)
 - Backups accept/replicate prepares and ack
@@ -435,8 +437,31 @@ From [Protocol: Normal](https://github.com/tigerbeetle/tigerbeetle/blob/main/doc
 - **Flexible quorums** (e.g. 6 replicas): replicate with **3**, view-change with **4** ([Flexible Paxos](https://fpaxos.github.io/))
 - **Protocol-aware recovery / NACKs** — handle **corrupt WAL** entries safely during view change
 - **Storage faults assumed** — repair prepares/blocks from peers using checksums
-- Persist VSR state in **superblock** (no classic VRR “Recovery Protocol”)
+- Persist VSR state in the **superblock** — so TigerBeetle’s VSR runs on **stable storage** (no classic revisited-paper “Recovery Protocol”)
 - Pipelined replication: concurrent WAL write + replicate; commit needn’t wait on primary’s own write
+
+---
+
+<!-- _class: build -->
+
+## Where is the superblock?
+
+On **each replica’s local disk**, in that replica’s **data file** — not “in the network.”
+
+- Fixed location in the file (easy to find on startup)
+- Stored as **4 copies** on disk for integrity
+- Data file zones include: **WAL**, **grid** (LSM), **superblock**
+
+---
+
+<!-- _class: build -->
+
+## What the superblock does
+
+- **Root pointer** of durable state → reaches the rest of the grid via address + checksum
+- Holds **local VSR state** that must survive crash → VSR on **stable storage**
+- Runtime: current superblock often **in memory**; periodically flushed → **checkpoint**
+- After crash: read superblock from disk, then **replay the WAL suffix** after that checkpoint
 
 ---
 
@@ -446,7 +471,7 @@ From [Protocol: Normal](https://github.com/tigerbeetle/tigerbeetle/blob/main/doc
 
 | Layer | Role |
 | --- | --- |
-| **VR Revisited** | Spec TigerBeetle implements (primary / views / quorums) |
+| **VSR Revisited** | Spec TigerBeetle implements (primary / views / quorums) |
 | **ARCHITECTURE.md** | How that maps to prepares, WAL, RSM, durability |
 | **Durability talk** | Why: availability = *f*(durability); consensus = that *f* |
 
@@ -458,9 +483,9 @@ From [Protocol: Normal](https://github.com/tigerbeetle/tigerbeetle/blob/main/doc
 
 From [Durability and the Art of Consensus](https://www.youtube.com/watch?v=tRgvaqpQPwE&t=1698s) (~28:18):
 
-- **VR Revisited** is one of the **clearest** papers for learning consensus
-- **Raft** (2 years later) is *remarkably similar* to VSR — essentially the same protocol
-- …except Raft **missed a big idea** that Liskov & Cowling put in VRR
+- **VSR Revisited** is one of the **clearest** papers for learning consensus
+- **Raft** (2 years later) is *remarkably similar* — same Oki-family protocol
+- Raft largely **missed the improved view-change** (deterministic next primary / Cowling’s nuance)
 
 ---
 
@@ -489,8 +514,8 @@ Other VSR ideas Joran highlights:
 
 - Can run **on disk** (what a real backup / DB system needs)
 - *Or* can run **in memory** (lighter deployments / teaching / testing shapes)
-- Extra **recovery protocol** when machines crash a lot (VRR’s recovery path)
-  - TigerBeetle instead persists VSR state in the **superblock** (see earlier slide)
+- Extra **recovery protocol** when machines crash a lot (revisited paper’s recovery path)
+  - TigerBeetle instead persists VSR state in the **superblock** — so TigerBeetle’s VSR runs on **stable storage**
 
 ---
 
@@ -498,8 +523,8 @@ Other VSR ideas Joran highlights:
 
 ## Takeaway
 
-- Study **VR Revisited** for the protocol shape
-- Notice what Raft copied — and what it **didn’t** (deterministic primary succession)
+- Study **VSR Revisited** for the shared Oki/VSR protocol shape
+- The subtle part is **view change** — where Revisited improved, and Raft lagged
 - TigerBeetle’s VSR is that lineage, engineered for **durability → availability**
 
 ---
@@ -508,7 +533,7 @@ Other VSR ideas Joran highlights:
 
 ## View-Change Protocol
 
-### VR Revisited §4.2 — in depth
+### VSR Revisited §4.2 — in depth
 
 [Paper talk walkthrough](https://www.youtube.com/watch?v=Wii1LX_ltIs&t=1087s) (~18:07)
 
@@ -543,12 +568,12 @@ $$
 
 <!-- _class: build -->
 
-## VRR ↔ TigerBeetle names
+## Paper names ↔ TigerBeetle names
 
-TigerBeetle follows VRR ideas but uses different command names
+TigerBeetle follows VSR (revisited) ideas but uses different command names
 ([vsr.md](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/internals/vsr.md)):
 
-| VRR paper | TigerBeetle (`vsr.md`) |
+| VSR Revisited paper | TigerBeetle (`vsr.md`) |
 | --- | --- |
 | **StartViewChange** | **`exit_view`** |
 | **DoViewChange** | **`join_view`** |
@@ -724,7 +749,7 @@ You can **commit more easily** (only 3) than you can **change leaders** (need 4)
 
 ## Why Not One Number (\(f + 1\))?
 
-Classic VR/Paxos: \(N = 2f + 1\), one majority \(f + 1\) for *everything*.
+Classic VSR/Paxos: \(N = 2f + 1\), one majority \(f + 1\) for *everything*.
 
 TigerBeetle uses **flexible quorums** ([Flexible Paxos](https://fpaxos.github.io/)):
 
@@ -746,6 +771,14 @@ In the protocol ([vsr.md](https://github.com/tigerbeetle/tigerbeetle/blob/main/d
 3. Separately: **nack quorum** can truncate an op that never committed
 
 This table is about **how many must participate** — not a simple “how many can fail” chart.
+
+---
+
+<!-- _class: lead -->
+
+## Very Cool Demo
+
+https://sim.tigerbeetle.com/
 
 ---
 
