@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contention and Scale</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1280px;
+      height: 560px;
+      background: #1e1e2e;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #cdd6f4;
+      overflow: hidden;
+    }
+    body { padding: 26px 34px; }
+    .wrap {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+    }
+    .headline {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #a6adc8;
+      font-weight: 600;
+    }
+    .headline strong { color: #fab387; }
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .card {
+      background: #11111b;
+      border: 2px solid #45475a;
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      color: #f5e0dc;
+    }
+    .card.hot { border-color: #f9e2af; }
+    .card.shard { border-color: #f38ba8; }
+    .card.tb { border-color: #a6e3a1; }
+    .viz {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+    .acct {
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid #45475a;
+      background: #181825;
+      color: #a6adc8;
+    }
+    .acct.hot {
+      border-color: #f9e2af;
+      background: rgba(249, 226, 175, 0.18);
+      color: #f9e2af;
+      box-shadow: 0 0 18px rgba(249, 226, 175, 0.2);
+    }
+    .arrows {
+      text-align: center;
+      color: #f9e2af;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .footer {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      color: #a6adc8;
+    }
+    .footer em { color: #cdd6f4; font-style: normal; font-weight: 600; }
+    .shards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .shard-box {
+      border: 1px dashed #f38ba8;
+      border-radius: 8px;
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #f5c2e7;
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .shard-box .bad {
+      color: #f9e2af;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    .core {
+      margin: 8px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #a6e3a1;
+      background: rgba(166, 227, 161, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+    }
+    .core .big {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #a6e3a1;
+    }
+    .core .sm {
+      font-size: 0.75rem;
+      color: #cdd6f4;
+      padding: 0 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="headline">Debit/credit is often <strong>power-law hot</strong> — a few accounts appear in most transfers</div>
+    <div class="cols">
+      <div class="card hot">
+        <h3>1. Hot accounts</h3>
+        <div class="viz">
+          <div class="acct">Account …</div>
+          <div class="acct hot">Branch / house / popular ticker</div>
+          <div class="acct">Account …</div>
+          <div class="arrows">↓ ↓ ↓ concurrent transfers</div>
+          <div class="acct hot">Same row / object contended</div>
+        </div>
+        <div class="footer">Like Gray’s <em>REWRITE BRANCH</em>: the bottleneck is the contested record, not average I/O.</div>
+      </div>
+      <div class="card shard">
+        <h3>2. Sharding struggles</h3>
+        <div class="viz">
+          <div class="shards">
+            <div class="shard-box">Shard A<div class="bad">HOT</div></div>
+            <div class="shard-box">Shard B<br/>cold</div>
+            <div class="shard-box">Shard C<br/>cold</div>
+            <div class="shard-box">Shard D<br/>cold</div>
+          </div>
+        </div>
+        <div class="footer">Scale-out adds servers, but the hot shard (or cross-shard tx) still serializes the workload.</div>
+      </div>
+      <div class="card tb">
+        <h3>3. TigerBeetle’s bet</h3>
+        <div class="viz">
+          <div class="core">
+            <div class="big">1 core</div>
+            <div class="sm">single primary path</div>
+          </div>
+        </div>
+        <div class="footer">Make the contended path <em>as fast as possible</em>: fixed schema, batches, in-DB debit/credit — then replicate for safety.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

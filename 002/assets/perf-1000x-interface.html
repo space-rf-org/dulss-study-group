@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1000x Interface Idea</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1280px;
+      height: 560px;
+      background: #1e1e2e;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #cdd6f4;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 32px;
+    }
+    .wrap {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .panel {
+      background: #11111b;
+      border: 2px solid #45475a;
+      border-radius: 16px;
+      padding: 22px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 480px;
+    }
+    .panel.tb {
+      border-color: #a6e3a1;
+      box-shadow: 0 0 32px rgba(166, 227, 161, 0.15);
+    }
+    .panel.pg {
+      border-color: #f38ba8;
+      box-shadow: 0 0 32px rgba(243, 139, 168, 0.12);
+    }
+    .eyebrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+    .pg .eyebrow { color: #f38ba8; }
+    .tb .eyebrow { color: #a6e3a1; }
+    h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #f5e0dc;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+    .q {
+      background: #313244;
+      border: 1px solid #585b70;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 0.92rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #89dceb;
+    }
+    .q.muted { opacity: 0.55; font-size: 0.82rem; text-align: center; color: #a6adc8; }
+    .result {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .pg .result {
+      background: rgba(243, 139, 168, 0.12);
+      border: 1px solid #f38ba8;
+      color: #f5c2e7;
+    }
+    .tb .result {
+      background: rgba(166, 227, 161, 0.12);
+      border: 1px solid #a6e3a1;
+      color: #a6e3a1;
+    }
+    .batch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .batch-box {
+      background: #313244;
+      border: 2px dashed #a6e3a1;
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .batch-box .big {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #a6e3a1;
+      line-height: 1.1;
+    }
+    .batch-box .sub {
+      margin-top: 6px;
+      font-size: 1rem;
+      color: #cdd6f4;
+    }
+    .batch-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .chip {
+      background: #181825;
+      border: 1px solid #45475a;
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .chip .n {
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #89dceb;
+    }
+    .chip .l {
+      font-size: 0.8rem;
+      color: #a6adc8;
+      margin-top: 2px;
+    }
+    .vs {
+      align-self: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #313244;
+      border: 2px solid #fab387;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fab387;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel pg">
+      <div class="eyebrow">General-purpose SQL</div>
+      <h2>One financial transfer</h2>
+      <div class="stack">
+        <div class="q">BEGIN</div>
+        <div class="q">SELECT balance … FOR UPDATE</div>
+        <div class="q">UPDATE accounts SET …</div>
+        <div class="q">UPDATE accounts SET …</div>
+        <div class="q">INSERT INTO history …</div>
+        <div class="q muted">… often 10–20 statements …</div>
+        <div class="q">COMMIT</div>
+      </div>
+      <div class="result">~10–20 SQL queries<br/>locks may span network RTTs</div>
+    </div>
+
+    <div class="vs">vs</div>
+
+    <div class="panel tb">
+      <div class="eyebrow">TigerBeetle</div>
+      <h2>One database query</h2>
+      <div class="batch">
+        <div class="batch-box">
+          <div class="big">≤ 8,190</div>
+          <div class="sub">transfers packed in one batch</div>
+        </div>
+        <div class="batch-meta">
+          <div class="chip"><span class="n">1</span><span class="l">round-trip</span></div>
+          <div class="chip"><span class="n">0</span><span class="l">app-held row locks</span></div>
+          <div class="chip"><span class="n">1×</span><span class="l">consensus / batch</span></div>
+          <div class="chip"><span class="n">DC</span><span class="l">primitive, not SQL</span></div>
+        </div>
+      </div>
+      <div class="result">What took ≥ ~8,000 SQL queries<br/>can be 1 TigerBeetle query</div>
+    </div>
+  </div>
+</body>
+</html>
