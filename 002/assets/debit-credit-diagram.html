@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debit / Credit Transfer</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #1e1e2e;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #cdd6f4;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scene {
+      width: min(1100px, 96vw);
+      padding: 1.5rem 2rem;
+    }
+    .label-top {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .pill {
+      border: 2px solid #cdd6f4;
+      border-radius: 999px;
+      padding: 0.7rem 1.8rem;
+      font-size: 2rem;
+      color: #ffffff;
+      background: #11111b;
+      letter-spacing: 0.01em;
+      font-weight: 700;
+    }
+    .pill span { color: #a6e3a1; }
+    .row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr minmax(120px, 180px) 1fr;
+      gap: 1.25rem;
+      align-items: center;
+      overflow: visible;
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      border-radius: 18px;
+      padding: 1.5rem 1.7rem 1.3rem;
+      background: #11111b;
+      min-height: 200px;
+      overflow: visible;
+    }
+    .card.debit {
+      border: 2px solid #f38ba8;
+      box-shadow: 0 0 28px rgba(243, 139, 168, 0.2);
+    }
+    .card.credit {
+      border: 2px solid #a6e3a1;
+      box-shadow: 0 0 28px rgba(166, 227, 161, 0.2);
+    }
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #cdd6f4;
+      margin-bottom: 0.3rem;
+    }
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .debit .tag { color: #f38ba8; }
+    .credit .tag { color: #a6e3a1; }
+    .balance {
+      font-size: 2.7rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      margin-bottom: 1rem;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+    .debit .balance { color: #f38ba8; }
+    .credit .balance { color: #cdd6f4; }
+    .balance.flash-debit {
+      transform: scale(1.08);
+      color: #f5c2e7;
+    }
+    .balance.flash-credit {
+      transform: scale(1.08);
+      color: #a6e3a1;
+    }
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6c7086;
+      font-size: 0.85rem;
+    }
+    .meta .chip {
+      width: 18px;
+      height: 12px;
+      border-radius: 3px;
+      border: 1px solid #585b70;
+      position: relative;
+    }
+    .meta .chip::after {
+      content: "";
+      position: absolute;
+      inset: 3px 2px;
+      border-top: 1px solid #585b70;
+      border-bottom: 1px solid #585b70;
+    }
+    .lane {
+      position: relative;
+      height: 170px;
+      z-index: 0;
+    }
+    .path {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 12px;
+      margin-top: -6px;
+      background: #a6e3a1;
+      border-radius: 999px;
+    }
+    .path::after {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 16px solid transparent;
+      border-left: 26px solid #a6e3a1;
+      border-right: 0;
+    }
+    /* Larger bill; positioned in JS relative to .row */
+    .bill {
+      position: absolute;
+      width: 260px;
+      top: 0;
+      left: 0;
+      /* Soft shadow on the bill shape only (transparent PNG) */
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4));
+      z-index: 5;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+    .bill img {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: transparent;
+      transform: rotate(-8deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="label-top">
+      <div class="pill">Transfer <span>$1</span> →</div>
+    </div>
+    <div class="row" id="row">
+      <div class="card debit" id="card-a">
+        <h2>Account A</h2>
+        <div class="tag">Debit −</div>
+        <div class="balance" id="balance-a">$100</div>
+        <div class="meta"><span class="chip"></span> ···· 4242</div>
+      </div>
+      <div class="lane" aria-hidden="true">
+        <div class="path"></div>
+      </div>
+      <div class="card credit" id="card-b">
+        <h2>Account B</h2>
+        <div class="tag">Credit +</div>
+        <div class="balance" id="balance-b">$50</div>
+        <div class="meta"><span class="chip"></span> ···· 9191</div>
+      </div>
+      <div class="bill" id="bill">
+        <img src="dollar-bill.png" alt="One dollar bill" />
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Absolute timeline (ms) for clearer pacing
+      const FADE_IN     = 400;
+      const HOLD_START  = 3400;  // stay in Account A ~3s so original balances are readable
+      const MOVE_END    = 5700;  // arrives in Account B
+      const HOLD_END    = 10700; // ~5s pause in Account B
+      const FADE_OUT    = 11500;
+      const DURATION    = 11900; // full loop
+
+      const bill = document.getElementById("bill");
+      const balA = document.getElementById("balance-a");
+      const balB = document.getElementById("balance-b");
+      const row = document.getElementById("row");
+      const cardA = document.getElementById("card-a");
+      const cardB = document.getElementById("card-b");
+
+      let start = null;
+      let debited = false;
+      let credited = false;
+
+      function easeInOut(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      }
+
+      function flash(el, cls) {
+        el.classList.remove(cls);
+        void el.offsetWidth;
+        el.classList.add(cls);
+        setTimeout(() => el.classList.remove(cls), 450);
+      }
+
+      function resetBalances() {
+        balA.textContent = "$100";
+        balB.textContent = "$50";
+        debited = false;
+        credited = false;
+      }
+
+      /** Start: 3/4 into Account A (right side, clear of labels). End: 3/4 into Account B. */
+      function pathEnds() {
+        const rowRect = row.getBoundingClientRect();
+        const a = cardA.getBoundingClientRect();
+        const b = cardB.getBoundingClientRect();
+        const w = bill.offsetWidth || 240;
+        const h = bill.offsetHeight || 120;
+
+        // Three-quarters of the way into Account A — avoids covering title/balance text
+        const startX = a.left - rowRect.left + a.width * 0.75 - w / 2;
+        const startY = a.top - rowRect.top + a.height / 2 - h / 2;
+
+        // Three-quarters of the way into Account B (from its left edge)
+        const endX = b.left - rowRect.left + b.width * 0.75 - w / 2;
+        const endY = b.top - rowRect.top + b.height / 2 - h / 2;
+
+        return { startX, startY, endX, endY };
+      }
+
+      function frame(ts) {
+        if (start == null) start = ts;
+        const elapsed = (ts - start) % DURATION;
+
+        if (elapsed < 50 && (debited || credited)) {
+          resetBalances();
+        }
+
+        let progress = 0;
+        let opacity = 0;
+
+        if (elapsed < FADE_IN) {
+          progress = 0;
+          opacity = elapsed / FADE_IN;
+        } else if (elapsed < HOLD_START) {
+          progress = 0;
+          opacity = 1;
+        } else if (elapsed <= MOVE_END) {
+          progress = easeInOut((elapsed - HOLD_START) / (MOVE_END - HOLD_START));
+          opacity = 1;
+        } else if (elapsed <= HOLD_END) {
+          // 5 second pause fully visible in Account B
+          progress = 1;
+          opacity = 1;
+        } else if (elapsed <= FADE_OUT) {
+          progress = 1;
+          opacity = 1 - (elapsed - HOLD_END) / (FADE_OUT - HOLD_END);
+        } else {
+          progress = 1;
+          opacity = 0;
+        }
+
+        const { startX, startY, endX, endY } = pathEnds();
+        const x = startX + (endX - startX) * progress;
+        const y = startY + (endY - startY) * progress;
+        const lift = -10 * Math.sin(progress * Math.PI);
+
+        bill.style.opacity = String(opacity);
+        bill.style.transform =
+          "translate(" + x + "px, " + (y + lift) + "px) scale(" +
+          (1 + 0.03 * Math.sin(progress * Math.PI)) + ")";
+
+        // Debit shortly after bill starts leaving Account A
+        if (!debited && elapsed >= HOLD_START + 80) {
+          balA.textContent = "$99";
+          flash(balA, "flash-debit");
+          debited = true;
+        }
+
+        // Credit as bill settles inside Account B
+        if (!credited && elapsed >= MOVE_END - 40) {
+          balB.textContent = "$51";
+          flash(balB, "flash-credit");
+          credited = true;
+        }
+
+        requestAnimationFrame(frame);
+      }
+
+      // Ensure image size is known before first position calc
+      const img = bill.querySelector("img");
+      function begin() {
+        resetBalances();
+        requestAnimationFrame(frame);
+      }
+      if (img.complete) begin();
+      else img.addEventListener("load", begin);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Execution Model Comparison</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1280px;
+      height: 560px;
+      background: #1e1e2e;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      color: #cdd6f4;
+      overflow: hidden;
+    }
+    body { padding: 28px 36px; }
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      height: 100%;
+    }
+    .col {
+      background: #11111b;
+      border-radius: 16px;
+      border: 2px solid #45475a;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+    }
+    .col.pg { border-color: #f38ba8; }
+    .col.tb { border-color: #a6e3a1; }
+    .title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .col.pg .title { color: #f38ba8; }
+    .col.tb .title { color: #a6e3a1; }
+    .sub {
+      color: #a6adc8;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+    .flow {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+    .lane {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .who {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a6adc8;
+      text-align: right;
+    }
+    .step {
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid #45475a;
+      background: #181825;
+    }
+    .step.app { border-color: #cba6f7; color: #cba6f7; }
+    .step.db { border-color: #89dceb; color: #89dceb; }
+    .step.lock {
+      border-color: #f9e2af;
+      background: rgba(249, 226, 175, 0.12);
+      color: #f9e2af;
+    }
+    .step.engine {
+      border-color: #a6e3a1;
+      background: rgba(166, 227, 161, 0.1);
+      color: #a6e3a1;
+    }
+    .arrow {
+      text-align: center;
+      color: #585b70;
+      font-size: 0.85rem;
+      padding-left: 100px;
+      line-height: 1;
+    }
+    .callout {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+    .col.pg .callout {
+      background: rgba(243, 139, 168, 0.12);
+      border: 1px solid #f38ba8;
+      color: #f5c2e7;
+    }
+    .col.tb .callout {
+      background: rgba(166, 227, 161, 0.12);
+      border: 1px solid #a6e3a1;
+      color: #a6e3a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="cols">
+    <div class="col pg">
+      <div class="title">Interactive SQL transaction</div>
+      <div class="sub">Business logic in the app · locks over the network</div>
+      <div class="flow">
+        <div class="lane"><div class="who">App</div><div class="step app">BEGIN / decide debit &amp; credit</div></div>
+        <div class="arrow">↓ RTT</div>
+        <div class="lane"><div class="who">DB</div><div class="step lock">LOCK hot rows (branch, accounts…)</div></div>
+        <div class="arrow">↓ RTT · locks still held</div>
+        <div class="lane"><div class="who">App</div><div class="step app">Check balances, apply rules</div></div>
+        <div class="arrow">↓ RTT · locks still held</div>
+        <div class="lane"><div class="who">DB</div><div class="step db">UPDATE + INSERT + COMMIT</div></div>
+      </div>
+      <div class="callout">Hot accounts serialize on row locks × RTT — more app servers often do not help.</div>
+    </div>
+
+    <div class="col tb">
+      <div class="title">TigerBeetle batch request</div>
+      <div class="sub">Debit/credit logic in the engine · one shot</div>
+      <div class="flow">
+        <div class="lane"><div class="who">App</div><div class="step app">Build batch of intended transfers</div></div>
+        <div class="arrow">↓ one RTT (up to 8,190 events)</div>
+        <div class="lane"><div class="who">TB</div><div class="step engine">Validate + apply + persist batch</div></div>
+        <div class="arrow">↓ consensus cost paid once per batch</div>
+        <div class="lane"><div class="who">TB</div><div class="step engine">Strict serializability · balances enforced</div></div>
+        <div class="arrow">↓</div>
+        <div class="lane"><div class="who">App</div><div class="step app">Results for the whole batch</div></div>
+      </div>
+      <div class="callout">No “hold row lock while the app thinks.” Contention is handled inside the specialized engine.</div>
+    </div>
+  </div>
+</body>
+</html>
