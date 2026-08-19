@@ -163,7 +163,7 @@ Main takeaways from Part 1:
 ## Prerequisite Readings — What I Took Away
 
 - **[QCon London ’23: A New Era for Database Design](https://www.youtube.com/watch?v=_jfOk4L7CiY)** — deeper on **disk writes** and **disk failure** handling
-- **[Primeagen interview: TigerBeetle](https://www.youtube.com/watch?v=sC1B3d9C_sI)** — good **animated consensus demo**; more visual, **less technical depth**
+- **[Primeagen interview: TigerBeetle](https://www.youtube.com/watch?v=sC1B3d9C_sI)** — good **animated consensus demo**; more visual
 - **[Durability and the Art of Consensus](https://www.youtube.com/watch?v=tRgvaqpQPwE)** — **much deeper** on the **consensus protocol** (durability + safety)
 
 ---
@@ -755,6 +755,8 @@ This table is about **how many must participate** — not a simple “how many c
 
 Thank you:
 
+- **Vineet Puranik** — https://www.linkedin.com/in/vineet-puranik-461ba05b/
+  Helped test out Discord Stage before this presentation.
 - **Chiradip Mandal** — https://chiradip.com  
   Inspiration for this study group and for deep study of data algorithms
 - **Joran Dirk Greef** and the TigerBeetle team — https://tigerbeetle.com  
