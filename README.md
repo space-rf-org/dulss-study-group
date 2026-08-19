@@ -33,8 +33,8 @@ Calendar: [https://luma.com/dulss](https://luma.com/dulss)
 
 ## Upcoming events
 
-- **Exploring TigerBeetle, part 2: Viewstamped Replication (VSR) Consensus Protocol** — August 19, 2026
-  Sign up: [https://luma.com/q52i04r2](https://luma.com/q52i04r2)
+- **Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces** — August 19, 2026
+  Sign up: [https://luma.com/pi2avdmy](https://luma.com/pi2avdmy)
 
 ---
 
