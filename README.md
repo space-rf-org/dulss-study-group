@@ -56,7 +56,7 @@ Calendar: [https://luma.com/dulss](https://luma.com/dulss)
 </tr>
 <tr>
 <td align="right">002</td>
-<td>Exploring TigerBeetle, part 2: Viewstamped Replication (VSR) Consensus Protocol</td>
+<td><a href="https://space-rf-org.github.io/dulss-study-group/002/slides.html">Exploring TigerBeetle, part 2: Viewstamped Replication (VSR) Consensus Protocol</a></td>
 <td>August 19, 2026</td>
 </tr>
 <tr>
