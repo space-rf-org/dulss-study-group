@@ -33,7 +33,7 @@ Calendar: [https://luma.com/dulss](https://luma.com/dulss)
 
 ## Upcoming events
 
-- **Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces** — August 19, 2026
+- **Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces** — September 16, 2026
   Sign up: [https://luma.com/pi2avdmy](https://luma.com/pi2avdmy)
 
 ---
