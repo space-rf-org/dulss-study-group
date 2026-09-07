@@ -9,7 +9,7 @@ description: >-
 
 # Eleven nines, recomputed
 
-**Issue 001** · *The Load-Bearing Result* — the weekly letter of the [Designing Ultra Large Scale Systems study group]({{ '/' | relative_url }})
+**Issue 001** · [Designing Ultra Large Scale Systems Newsletter]({{ '/newsletter/' | relative_url }})
 
 By [Chiradip Mandal](https://www.linkedin.com/in/chiradip/)
 
@@ -204,4 +204,4 @@ three deployments where it silently stops protecting you.*
 
 ---
 
-[← Study group home]({{ '/' | relative_url }}) · [Discord](https://discord.gg/C2aTuavXeU) · [Sessions on Luma](https://luma.com/dulss)
+[← All issues]({{ '/newsletter/' | relative_url }}) · [Study group]({{ '/' | relative_url }}) · [Discord](https://discord.gg/C2aTuavXeU) · [Sessions on Luma](https://luma.com/dulss)

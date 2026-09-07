@@ -1,17 +1,15 @@
 ---
-title: "The Load-Bearing Result"
+title: "Newsletter"
 author: Chiradip Mandal
 description: >-
-  The weekly letter of the Designing Ultra Large Scale Systems study group.
-  One guarantee per issue, stated as a machine-checkable invariant, priced in
-  physics, with the derivation and the lab that make it yours.
+  Designing Ultra Large Scale Systems Newsletter — weekly. One guarantee per
+  issue, stated as a machine-checkable invariant, priced in physics, with the
+  derivation and the lab that make it yours.
 ---
 
-# The Load-Bearing Result
+# Designing Ultra Large Scale Systems Newsletter
 
-*The weekly letter of the [Designing Ultra Large Scale Systems study group]({{ '/' | relative_url }})*
-
-Written by [Chiradip Mandal](https://www.linkedin.com/in/chiradip/)
+*Weekly. Written by [Chiradip Mandal](https://www.linkedin.com/in/chiradip/)*
 
 ---
 
@@ -19,9 +17,12 @@ Every issue takes **one guarantee**, states it as a machine-checkable invariant,
 physics, and hands you the derivation and the lab that make it yours.
 
 That is the whole product. Not a survey, not a diagram to recognise in an interview — a result
-you can reconstruct on a whiteboard and defend when someone pushes back. We follow the study
-group's rules: no product pitches, first principles or nothing, claims that can be checked, and
-lessons that survive the example being replaced.
+you can reconstruct on a whiteboard and defend when someone pushes back. It holds to four rules:
+no product pitches, first principles or nothing, claims that can be checked, and lessons that
+survive the example being replaced.
+
+Its sibling is the [study group]({{ '/' | relative_url }}), which meets monthly to take a system
+apart together. Same standards, same people, different form — one is read, the other is argued.
 
 Each issue is roughly 1,400 words in a fixed shape — the claim, its cost, the derivation, the
 engineering that buys it back cheaply, an assignment, and errata — so you always know where the
@@ -57,4 +58,4 @@ archive is the canonical home rather than the inbox.
 
 ---
 
-[← Study group home]({{ '/' | relative_url }})
+[← Designing Ultra Large Scale Systems]({{ '/' | relative_url }})

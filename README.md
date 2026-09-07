@@ -1,5 +1,5 @@
 ---
-title: Designing Ultra Large Scale Systems Study Group
+title: Study Group
 ---
 
 <table class="brand-header">
@@ -29,7 +29,7 @@ Invite: [https://discord.gg/C2aTuavXeU](https://discord.gg/C2aTuavXeU)
 **Luma** — calendar and RSVPs for all sessions  
 Calendar: [https://luma.com/dulss](https://luma.com/dulss)
 
-**The Load-Bearing Result** — our weekly letter: one guarantee per issue, stated as an invariant, priced in physics, derived in full  
+**Designing Ultra Large Scale Systems Newsletter** — our sibling publication, weekly: one guarantee per issue, stated as an invariant, priced in physics, derived in full  
 Archive: [newsletter]({{ '/newsletter/' | relative_url }})
 
 ---
