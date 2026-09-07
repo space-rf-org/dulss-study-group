@@ -54,12 +54,14 @@ with per-drive failure rate `λ = AFR / 8766` per hour and repair rate `μ = 1/M
 is absorbing — that is data loss.
 
 ```
-        3λ         2λ          λ
-   [3] ────► [2] ────► [1] ────► [0]
-             ▲ │        ▲ │
-           μ │ └────────┘ │ μ        (repair returns a replica)
-             └────────────┘
+           3λ            2λ            λ
+    [3] ───────►  [2] ───────►  [1] ───────►  [0]   ← absorbing: data loss
+        ◄───────      ◄───────
+           μ             μ
 ```
+
+Forward arrows are failures; the backward arrows are repair. State 0 has no way back —
+that is the whole point of the model.
 
 With `μ ≫ λ` the system sits in state 3 essentially always, so the loss rate is the rate of
 entering state 2, times the probability of losing a second replica before repair, times the

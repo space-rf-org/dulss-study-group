@@ -1,3 +1,9 @@
+---
+# Internal working document: versioned in git, deliberately not built into the
+# public site. Remove this front matter to publish it at /newsletter/BLUEPRINT.
+published: false
+---
+
 # Blueprint — a weekly letter for the DULSS study group
 
 **Status:** design draft v0.1
