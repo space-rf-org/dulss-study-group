@@ -1,5 +1,6 @@
 ---
 title: "Eleven nines, recomputed"
+author: Chiradip Mandal
 description: >-
   Issue 001. Eleven nines of durability is a true statement about a model in which
   the only way to lose data is uncorrelated disk failure. Inside that model the
@@ -9,6 +10,8 @@ description: >-
 # Eleven nines, recomputed
 
 **Issue 001** · *The Load-Bearing Result* — the weekly letter of the [Designing Ultra Large Scale Systems study group]({{ '/' | relative_url }})
+
+By [Chiradip Mandal](https://www.linkedin.com/in/chiradip/)
 
 ---
 

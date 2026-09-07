@@ -1,0 +1,68 @@
+name: Preview site
+
+# GitHub Pages builds only the published branch, so a pull request has no
+# preview URL of its own. This builds the site exactly as Pages would and
+# attaches the result to the run, so a reviewer can look at the rendered
+# pages — styling, tables, figures — instead of reading raw Markdown.
+#
+# It also fails the PR if the site does not build at all, which the Markdown
+# diff view cannot tell you.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build rendered site
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      # Built into a directory named for the site's baseurl (/dulss-study-group)
+      # so the download can be served as-is and every absolute link resolves.
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+          PAGES_REPO_NWO: ${{ github.repository }}
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec jekyll build --destination preview/dulss-study-group
+
+      - name: Write viewing instructions
+        run: |
+          cat > preview/HOW-TO-VIEW.txt <<'TXT'
+          Rendered preview of the site for this pull request.
+
+            1. Unzip this archive.
+            2. From the directory that contains "dulss-study-group", run:
+
+                   python3 -m http.server 8000
+
+            3. Open http://localhost:8000/dulss-study-group/
+
+          Opening the .html files directly with file:// will NOT work — the site
+          uses absolute paths under /dulss-study-group, so it has to be served.
+
+          Built with the same `github-pages` gem that GitHub Pages runs, so this
+          is what merging will publish.
+          TXT
+
+      - name: Upload rendered site
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview-pr-${{ github.event.pull_request.number }}
+          path: preview
+          retention-days: 14

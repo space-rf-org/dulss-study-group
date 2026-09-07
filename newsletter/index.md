@@ -1,5 +1,6 @@
 ---
 title: "The Load-Bearing Result"
+author: Chiradip Mandal
 description: >-
   The weekly letter of the Designing Ultra Large Scale Systems study group.
   One guarantee per issue, stated as a machine-checkable invariant, priced in
@@ -9,6 +10,8 @@ description: >-
 # The Load-Bearing Result
 
 *The weekly letter of the [Designing Ultra Large Scale Systems study group]({{ '/' | relative_url }})*
+
+Written by [Chiradip Mandal](https://www.linkedin.com/in/chiradip/)
 
 ---
 

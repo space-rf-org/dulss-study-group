@@ -7,3 +7,7 @@ _site/
 .sass-cache/
 vendor/
 .bundle/
+Gemfile.lock
+
+# Local output of the PR-preview build (see .github/workflows/pr-preview.yml)
+preview/
