@@ -123,7 +123,7 @@ body > .container-lg.markdown-body {
 }
 
 /* Brand header */
-.markdown-body > table:first-of-type {
+.markdown-body > table.brand-header {
   display: block;
   width: 100%;
   margin: 0 0 1.25rem;
@@ -131,15 +131,15 @@ body > .container-lg.markdown-body {
   background: transparent;
 }
 
-.markdown-body > table:first-of-type tr,
-.markdown-body > table:first-of-type td {
+.markdown-body > table.brand-header tr,
+.markdown-body > table.brand-header td {
   border: 0 !important;
   background: transparent !important;
   padding: 0 !important;
   vertical-align: middle !important;
 }
 
-.markdown-body > table:first-of-type img {
+.markdown-body > table.brand-header img {
   display: block;
   width: 64px;
   height: 64px;
@@ -150,7 +150,7 @@ body > .container-lg.markdown-body {
   box-sizing: border-box;
 }
 
-.markdown-body > table:first-of-type h1 {
+.markdown-body > table.brand-header h1 {
   margin: 0 0 0 0.9rem !important;
   padding: 0 !important;
   border: 0 !important;
@@ -161,7 +161,7 @@ body > .container-lg.markdown-body {
   color: var(--primary) !important;
 }
 
-.markdown-body > table:first-of-type + p {
+.markdown-body > table.brand-header + p {
   font-size: 1.05rem;
   line-height: 1.6;
   color: var(--secondary);
@@ -228,7 +228,7 @@ body > .container-lg.markdown-body {
   background: none;
 }
 
-.markdown-body table:not(:first-of-type) {
+.markdown-body table:not(.brand-header) {
   width: 100%;
   margin: 1rem 0 1.35rem;
   border-collapse: separate;
@@ -239,8 +239,8 @@ body > .container-lg.markdown-body {
   display: table;
 }
 
-.markdown-body table:not(:first-of-type) th,
-.markdown-body table:not(:first-of-type) td {
+.markdown-body table:not(.brand-header) th,
+.markdown-body table:not(.brand-header) td {
   padding: 0.65rem 0.85rem !important;
   border: 0 !important;
   border-bottom: 1px solid var(--border) !important;
@@ -252,21 +252,21 @@ body > .container-lg.markdown-body {
   vertical-align: top !important;
 }
 
-.markdown-body table:not(:first-of-type) th[align="right"],
-.markdown-body table:not(:first-of-type) td[align="right"] {
+.markdown-body table:not(.brand-header) th[align="right"],
+.markdown-body table:not(.brand-header) td[align="right"] {
   text-align: right !important;
 }
 
-.markdown-body table:not(:first-of-type) th[align="center"],
-.markdown-body table:not(:first-of-type) td[align="center"] {
+.markdown-body table:not(.brand-header) th[align="center"],
+.markdown-body table:not(.brand-header) td[align="center"] {
   text-align: center !important;
 }
 
-.markdown-body table:not(:first-of-type) tr:last-child td {
+.markdown-body table:not(.brand-header) tr:last-child td {
   border-bottom: 0 !important;
 }
 
-.markdown-body table:not(:first-of-type) th {
+.markdown-body table:not(.brand-header) th {
   background: var(--table-head) !important;
   color: var(--primary) !important;
   font-weight: 600;
@@ -275,11 +275,11 @@ body > .container-lg.markdown-body {
   letter-spacing: 0;
 }
 
-.markdown-body table:not(:first-of-type) tr:nth-child(even) td {
+.markdown-body table:not(.brand-header) tr:nth-child(even) td {
   background: var(--table-stripe) !important;
 }
 
-.markdown-body table:not(:first-of-type) tr:hover td {
+.markdown-body table:not(.brand-header) tr:hover td {
   background: var(--table-hover) !important;
 }
 
@@ -314,8 +314,18 @@ body > .container-lg.markdown-body {
 .markdown-body > h2,
 .markdown-body > h3,
 .markdown-body > hr,
-.markdown-body > table:not(:first-of-type) {
+.markdown-body > table:not(.brand-header) {
   max-width: 48rem;
+}
+
+/* Wide data tables (newsletter derivations) scroll inside their own box on
+   narrow viewports rather than forcing the whole page to scroll sideways. */
+@media (max-width: 640px) {
+  .markdown-body table:not(.brand-header) {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 /* Theme toggle (fixed corner, like Lil'Log top-link) */
@@ -383,11 +393,11 @@ html[data-theme="dark"] #theme-toggle .icon-sun {
     font-size: 16px !important;
   }
 
-  .markdown-body > table:first-of-type h1 {
+  .markdown-body > table.brand-header h1 {
     font-size: 1.35rem !important;
   }
 
-  .markdown-body > table:first-of-type img {
+  .markdown-body > table.brand-header img {
     width: 52px;
     height: 52px;
   }
