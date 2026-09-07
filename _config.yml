@@ -1,5 +1,11 @@
 # GitHub Pages / Jekyll site settings (does not affect GitHub README content)
-title: Designing Ultra Large Scale Systems Study Group
+#
+# `title` is the umbrella the site's properties sit under, because there is now
+# more than one: the study group and the newsletter are siblings, not parent and
+# child. jekyll-seo-tag appends this to every page title, so a page sets only its
+# own name in front matter — e.g. "Newsletter" renders as
+# "Newsletter | Designing Ultra Large Scale Systems".
+title: Designing Ultra Large Scale Systems
 description: >-
   A community for engineers who want to go deep on distributed systems,
   data algorithms, and production-scale designs — through papers, code,
@@ -45,4 +51,4 @@ defaults:
         path: /assets/social-card.png
         width: 1200
         height: 627
-        alt: Designing Ultra Large Scale Systems Study Group
+        alt: Designing Ultra Large Scale Systems

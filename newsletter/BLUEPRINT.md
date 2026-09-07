@@ -4,10 +4,13 @@
 published: false
 ---
 
-# Blueprint — a weekly letter for the DULSS study group
+# Blueprint — Designing Ultra Large Scale Systems Newsletter
 
-**Status:** design draft v0.1
-**Owner:** study group (Chiradip Mandal, Craig Rodrigues)
+**Status:** design draft v0.2 — name decided
+**Author:** Chiradip Mandal
+**Relationship to the study group:** siblings, not parent and child. Both sit under the
+Designing Ultra Large Scale Systems umbrella and hold to the same standards; the newsletter is
+read, the study group is argued. Neither is a channel for the other.
 **Sources of the spine:** `dulss-book-rev2` (Vol 1 preface; Vol 2 plan), `dulss-vol1-labs`
 (§1 "reading isn't owning"), this repo's `definition.md` and Guiding Principles.
 
@@ -129,13 +132,16 @@ the only letter that proves things.
 11. **Read This Instead** — One paragraph on why the famous paper on a topic is the wrong entry point, and which obscure one is right.
 12. **The Assignment** — A war story converted into a graded lab; the autograder ships with the issue, solutions the week after.
 
-## 10. Candidate names (each ≤ 25 words)
+## 10. The name
 
-- ***The Load-Bearing Result*** — every issue carries one result the rest of the field stands on, and shows it holding weight.
-- ***Guarantee & Cost*** — the Vol 2 spine as a masthead: name the promise, then name what it costs in physics.
-- ***Invariant*** — one word, weekly, machine-checkable; matches the study group's definition of an engineered ultra-large-scale system.
-- ***The Expedition*** — from the series pitch: if the survey books are the map of the territory, this is the expedition.
-- ***Bounded Surface*** — from `definition.md`: bounded capability surface, unbounded capacity. Signals the audience in two words and repels everyone else.
+**Designing Ultra Large Scale Systems Newsletter** — decided. It takes the series name directly,
+which is the point: the newsletter is a sibling of the study group under that umbrella, not a
+publication *of* the study group. Site pages therefore set only their own name in front matter
+and let `_config.yml`'s `title` supply the umbrella.
+
+Earlier candidates, kept for the record: *The Load-Bearing Result*; *Guarantee & Cost*;
+*Invariant*; *The Expedition*; *Bounded Surface*. Any of these could still serve as a strapline
+under the masthead if the plain name reads too flat in the inbox.
 
 ## 11. First six issues (a concrete run, each ≤ 25 words)
 
@@ -150,8 +156,12 @@ the only letter that proves things.
 
 ## 12. Open decisions
 
-- **Name** — pick from §10 before issue 001.
-- **Transport** — Buttondown (markdown-native, cheap) vs. Listmonk (self-hosted, owns the list).
+- **Strapline** — whether the masthead carries one under the name (§10 lists the candidates), or
+  the plain name stands alone.
+- **Transport** — Luma reaches the audience already but its editor supports neither tables nor
+  code blocks, so it can carry the claim plus a link, never the full text. A dedicated mailer
+  (Buttondown, markdown-native and cheap; or Listmonk, self-hosted and owns the list) is the
+  option for putting the whole issue in the inbox. The archive stays canonical either way.
 - **Author rotation** — single voice vs. rotating with session presenters. Recommend single voice
   for the first ten issues to fix the register, then invite.
 - **Length discipline** — enforce the §4 budget by word count in CI, or by editorial judgment.
