@@ -64,7 +64,7 @@ Archive: [newsletter]({{ '/newsletter/' | relative_url }})
 </tr>
 <tr>
 <td align="right">003</td>
-<td>Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces</td>
+<td><a href="https://docs.google.com/presentation/d/1vrbdzg5s5BxzpBQyRrsSGHYNf-O-6ivpZ59OTLnumyI/view">Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces</a></td>
 <td>September 16, 2026</td>
 </tr>
 <tr>
