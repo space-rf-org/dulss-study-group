@@ -34,6 +34,7 @@ proof starts and can enter at your own altitude.
 
 | # | Title | Published |
 |---|---|---|
+| 002 | [What a quorum actually buys](002/) — `R + W > N` is a visibility property, not a consistency one; the second inequality nobody checks | — |
 | 001 | [Eleven nines, recomputed](001/) — the durability figure everyone quotes, rebuilt from the Markov chain, then broken by the term the chain cannot see | — |
 
 ---
