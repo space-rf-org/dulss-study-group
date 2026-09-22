@@ -293,6 +293,40 @@ body > .container-lg.markdown-body {
   padding: 0.12em 0.4em;
 }
 
+/* Fenced code blocks — derivations, diagrams, commands.
+   The Primer theme hardcodes `background-color: #f6f8fa` on `pre` and makes the
+   `code` inside transparent, so in dark mode this was near-white text on a
+   near-white block: 1.3:1, effectively invisible. Drive both ends from the
+   theme tokens so the block follows light and dark like everything else.
+
+   The selector list must mirror Primer's own (`.markdown-body .highlight pre,
+   .markdown-body pre`): Rouge wraps every fenced block in `div.highlight`, so a
+   bare `.markdown-body pre` scores 0,1,1 against its 0,2,1 and loses. Matching
+   the shape puts us on equal specificity, where loading later wins. */
+.markdown-body .highlight pre,
+.markdown-body pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--primary);
+  padding: 0.9rem 1.05rem;
+  overflow-x: auto;
+}
+
+/* The block already carries the surface; the code inside must not draw its own
+   box on top of it, but it does need the readable foreground. */
+.markdown-body .highlight pre code,
+.markdown-body pre code,
+.markdown-body pre > code,
+.markdown-body pre tt {
+  background: transparent;
+  border: 0;
+  color: var(--primary);
+  padding: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
 .markdown-body ol li::marker,
 .markdown-body ul li::marker {
   color: var(--secondary);
