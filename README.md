@@ -36,8 +36,8 @@ Archive: [newsletter]({{ '/newsletter/' | relative_url }})
 
 ## Upcoming events
 
-- **Antithesis: First-Principles Approaches to Testing Ultra-Large State Spaces** — September 16, 2026
-  Sign up: [https://luma.com/pi2avdmy](https://luma.com/pi2avdmy)
+- **ChronoQuorum: Letting the Clock Order, and What That Buys** — October 13, 2026
+  Sign up: [https://luma.com/7acwsfu1](https://luma.com/7acwsfu1)
 
 ---
 
@@ -69,8 +69,8 @@ Archive: [newsletter]({{ '/newsletter/' | relative_url }})
 </tr>
 <tr>
 <td align="right">004</td>
-<td>ChronoQuorum: A Consensus Protocol for Unmanned Mission Vehicles</td>
-<td>October 2026</td>
+<td>ChronoQuorum: Letting the Clock Order, and What That Buys</td>
+<td>October 13, 2026</td>
 </tr>
 </tbody>
 </table>
