@@ -167,4 +167,4 @@ about a state space too large to enumerate, and the questions the room could not
 
 ---
 
-[← All issues]({{ '/newsletter/' | relative_url }}) · [Study group]({{ '/' | relative_url }}) · [Discord](https://discord.gg/C2aTuavXeU) · [Sessions on Luma](https://luma.com/dulss)
+[← All issues]({{ '/newsletter/' | relative_url }}) · [Study group]({{ '/' | relative_url }}) · [Discord](https://discord.gg/aDdpJqX3eS) · [Sessions on Luma](https://luma.com/dulss)

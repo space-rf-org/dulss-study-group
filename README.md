@@ -24,7 +24,7 @@ We study systems together. We also evaluate them: architecture, performance, cor
 ## Join us
 
 **Discord** — meetings, presentations, and ongoing discussion  
-Invite: [https://discord.gg/C2aTuavXeU](https://discord.gg/C2aTuavXeU)
+Invite: [https://discord.gg/aDdpJqX3eS](https://discord.gg/aDdpJqX3eS)
 
 **Luma** — calendar and RSVPs for all sessions  
 Calendar: [https://luma.com/dulss](https://luma.com/dulss)

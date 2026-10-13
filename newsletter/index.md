@@ -54,7 +54,7 @@ archive is the canonical home rather than the inbox.
 ## Stay in touch
 
 - **[Luma](https://luma.com/dulss)** — follow the calendar for sessions and issue announcements
-- **[Discord](https://discord.gg/C2aTuavXeU)** — ongoing discussion, and where counterexamples get argued
+- **[Discord](https://discord.gg/aDdpJqX3eS)** — ongoing discussion, and where counterexamples get argued
 - **[GitHub](https://github.com/space-rf-org/dulss-study-group)** — the archive itself
 
 ---
