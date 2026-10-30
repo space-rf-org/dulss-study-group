@@ -69,7 +69,7 @@ Archive: [newsletter]({{ '/newsletter/' | relative_url }})
 </tr>
 <tr>
 <td align="right">004</td>
-<td>ChronoQuorum: Letting the Clock Order, and What That Buys</td>
+<td><a href="./004/ChronoQuorum.html">Letting the Clock Order, and What That Buys</a></td>
 <td>October 13, 2026</td>
 </tr>
 </tbody>
